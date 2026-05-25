@@ -25,7 +25,6 @@
 
 ## 3. 项目结构
 
-```text
 asymmetric-image-encryption/
 ├── README.md
 ├── asymmetric_encrypter.py
