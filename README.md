@@ -33,3 +33,26 @@ asymmetric-image-encryption/
 ├── .gitignore
 ├── sample_results.png
 └── logs/
+
+## 4. 第 12 周更新说明
+
+本周在第 11 周 baseline 的基础上，继续完善了基于对抗训练自编码器的非对称图像加密原型。主要更新内容如下：
+
+### 4.1 模型结构更新
+
+- 加深了 PrivGen 私钥生成网络，由简单映射扩展为多层全连接网络，并加入 Dropout，提高密钥表示能力。
+- 加深了 PubGen 公钥生成网络，使公钥由随机向量和私钥共同生成，增强公钥与私钥之间的关联表达。
+- 对 Alice、Bob、Eve 三个模块进行结构扩展：
+  - Alice 在多层中反复引入公钥信息，用于生成密文向量；
+  - Bob 在多层中反复引入私钥信息，用于从密文中恢复原图；
+  - Eve 在多层中反复引入公钥信息，用于模拟攻击者在无私钥条件下的重构能力。
+
+### 4.2 训练流程更新
+
+- 保留 Alice、Bob、Eve、KeyGen 的对抗训练框架。
+- 每个 batch 中先固定 Alice/KeyGen/Bob，多步训练 Eve，使 Eve 尽可能从密文和公钥中恢复原图。
+- 再固定 Eve，训练 Alice/KeyGen/Bob，使 Bob 的重构误差降低，同时尽量增大 Eve 的攻击误差。
+- 当前 Alice/KeyGen/Bob 的优化目标为：
+
+```text
+loss_AKB = L_b - mu * L_e
