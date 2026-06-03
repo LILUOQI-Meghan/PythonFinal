@@ -33,7 +33,7 @@ asymmetric-image-encryption/
 ├── .gitignore
 ├── sample_results.png
 └── logs/
-
+```
 ## 4. 第 12 周更新说明
 
 本周在第 11 周 baseline 的基础上，继续完善了基于对抗训练自编码器的非对称图像加密原型。主要更新内容如下：
@@ -54,5 +54,29 @@ asymmetric-image-encryption/
 - 再固定 Eve，训练 Alice/KeyGen/Bob，使 Bob 的重构误差降低，同时尽量增大 Eve 的攻击误差。
 - 当前 Alice/KeyGen/Bob 的优化目标为：
 
-```text
+
 loss_AKB = L_b - mu * L_e
+
+## 第 13、14 周补充实验：嵌入向量可视化对比
+
+为了分析普通自编码器和对抗加密自编码器在编码空间中的差异，本周增加了 embedding 可视化实验。
+
+实验方法如下：
+
+1. 训练一个普通 AutoEncoder，提取其 Encoder 输出的 latent vector；
+2. 使用当前对抗加密模型，提取 Alice 输出的 ciphertext vector；
+3. 分别使用 PCA 和 t-SNE 将两类向量降维到二维空间；
+4. 使用 MNIST 数字标签进行着色，观察不同数字类别在编码空间中的聚类情况；
+5. 计算 silhouette score 和 kNN label accuracy，辅助衡量 embedding 中保留的类别信息。
+
+实验预期：
+
+- 普通 AutoEncoder 的 latent vector 通常保留较多图像语义，因此不同数字类别可能形成较明显的聚类；
+- 对抗加密模型中 Alice 输出的 ciphertext 需要隐藏原图信息，使 Eve 难以攻击恢复，因此其二维可视化结果中不同类别应更加混合；
+- 若 adversarial ciphertext 的 silhouette score 和 kNN label accuracy 明显低于普通 AutoEncoder，则说明该编码空间中可直接恢复的类别信息更少，具有一定的信息隐藏效果。
+
+新增文件：
+
+```text
+visualize_embeddings.ipynb
+```
