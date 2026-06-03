@@ -53,8 +53,9 @@ asymmetric-image-encryption/
 - 再固定 Eve，训练 Alice/KeyGen/Bob，使 Bob 的重构误差降低，同时尽量增大 Eve 的攻击误差。
 - 当前 Alice/KeyGen/Bob 的优化目标为：
 
-
+```text
 loss_AKB = L_b - mu * L_e
+```
 
 ## 第 13、14 周补充实验：嵌入向量可视化对比
 
@@ -73,8 +74,9 @@ loss_AKB = L_b - mu * L_e
 - 普通 AutoEncoder 的 latent vector 通常保留较多图像语义，因此不同数字类别可能形成较明显的聚类；
 - 对抗加密模型中 Alice 输出的 ciphertext 需要隐藏原图信息，使 Eve 难以攻击恢复，因此其二维可视化结果中不同类别应更加混合；
 - 若 adversarial ciphertext 的 silhouette score 和 kNN label accuracy 明显低于普通 AutoEncoder，则说明该编码空间中可直接恢复的类别信息更少，具有一定的信息隐藏效果。
+- 
+<center class ='img'>
+<img title="普通编码器潜空间" src="plain_ae_tsne" width="45%">
+<img title="加密编码器潜空间" src="adversarial_cipher_tsne" width="45%">
+</center>
 
-新增文件：
-
-```text
-loss_AKB = L_b - mu * L_e
