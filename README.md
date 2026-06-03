@@ -24,7 +24,6 @@
 当前版本仍属于原型阶段，重点是跑通训练流程，而不是证明模型已经具备严格密码学安全性。
 
 ## 3. 项目结构
-
 ```text
 asymmetric-image-encryption/
 ├── README.md
@@ -78,5 +77,4 @@ loss_AKB = L_b - mu * L_e
 新增文件：
 
 ```text
-visualize_embeddings.ipynb
-```
+loss_AKB = L_b - mu * L_e
