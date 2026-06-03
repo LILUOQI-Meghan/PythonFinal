@@ -76,7 +76,7 @@ loss_AKB = L_b - mu * L_e
 - 若 adversarial ciphertext 的 silhouette score 和 kNN label accuracy 明显低于普通 AutoEncoder，则说明该编码空间中可直接恢复的类别信息更少，具有一定的信息隐藏效果。
 - 
 <center class ='img'>
-<img title="普通编码器潜空间" src="./embedding_vis/plain_ae_tsne" width="45%">
-<img title="加密编码器潜空间" src="./embedding_vis/adversarial_cipher_tsne" width="45%">
+<img title="普通编码器潜空间" src="./embedding_vis/plain_ae_tsne.png" width="45%">
+<img title="加密编码器潜空间" src="./embedding_vis/adversarial_cipher_tsne.png" width="45%">
 </center>
 
